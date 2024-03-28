@@ -1,0 +1,37 @@
+namespace NAndItsDouble
+{
+    public class Solution
+    {
+        public bool CheckIfExist(int[] arr)
+        {
+            int value = 0;
+            bool searchResult = false;
+
+            Dictionary<int, int> arrayItems = new Dictionary<int, int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                searchResult = arrayItems.TryGetValue(arr[i] * 2, out value);
+                
+                if (searchResult)
+                {
+                    return true;
+                }
+
+                if (arr[i] % 2 == 0)
+                {
+                    searchResult = arrayItems.TryGetValue(arr[i] / 2, out value);
+
+                    if (searchResult)
+                    {
+                        return true;
+                    }
+                }
+
+                arrayItems.TryAdd(arr[i], 0);
+            }
+
+            return false;
+        }
+    }
+}
